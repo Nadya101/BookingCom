@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import static com.codeborne.selenide.Selenide.*;
 
 public class HotelSteps {
+    public static final String baseURL = "https://www.booking.com";
+
     @Given("User opens Booking.com page")
     public void userOpensBookingComPage() {
-        open("https://www.booking.com/searchresults.en-gb.html");
+        open(baseURL + "/searchresults.en-gb.html");
     }
 
     @And("User type {string} in search field")
@@ -23,8 +25,6 @@ public class HotelSteps {
         $(By.id("ss")).clear();
         $(By.id("ss")).sendKeys(hotel);
         $(By.id("ss")).click();
-
-
     }
 
     @When("User click on Search button")
@@ -44,7 +44,7 @@ public class HotelSteps {
 
     @And("Hotel {string} rating is {string}")
     public void hotelRatingIsRating(String hotel, String rating) {
-        String ratingXpath = "//*[contains(text(), '" +hotel+ "')]/ancestor::div[@data-testid='property-card']//div[@class='_9c5f726ff bd528f9ea6']";
+        String ratingXpath = "//*[contains(text(), '" + hotel + "')]/ancestor::div[@data-testid='property-card']//div[contains(@aria-label,'Scored')] ";
         String getRating = $(By.xpath(ratingXpath)).getText();
         Assert.assertEquals(getRating, rating);
     }
