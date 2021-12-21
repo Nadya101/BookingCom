@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import static com.codeborne.selenide.Selenide.*;
 
 public class BookingSteps {
-    String city ;
+    public static final String baseURL = "https://www.booking.com";
+    private String city;
+
     @Given("User is looking for hotels in {string} city")
     public void userIsLookingForHotelsInCity(String city) {
         this.city = city;
@@ -20,7 +22,7 @@ public class BookingSteps {
 
     @When("User does search")
     public void userDoesSearch() {
-        open("https://www.booking.com/");
+        open(baseURL);
         $(By.id("ss")).sendKeys(city);
         $(By.cssSelector(".sb-searchbox__button")).click();
 
@@ -29,7 +31,7 @@ public class BookingSteps {
     @Then("Hotel {string} should be on the first page")
     public void hotelHamptonByHiltonMinskCityCentreOpensInNewWindowShouldBeOnTheFirstPage(String hotel) {
         ArrayList<String> hotelsName = new ArrayList<>();
-        for(SelenideElement element: $$(By.xpath("//*[@data-testid='title']"))){
+        for (SelenideElement element : $$(By.xpath("//*[@data-testid='title']"))) {
             hotelsName.add(element.getText());
         }
         Assert.assertTrue(hotelsName.contains(hotel));
