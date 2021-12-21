@@ -32,7 +32,7 @@ public class HotelSteps {
         $(By.cssSelector(".sb-searchbox__button")).click();
     }
 
-    @Then("{string} should be on the first page")
+    @Then("Hotel {string} should be on the first page")
     public void hotelShouldBeOnTheFirstPage(String hotel) {
         ArrayList<String> hotelsNames = new ArrayList<>();
         for (SelenideElement element : $$(By.xpath("//*[@data-testid='title']"))) {
